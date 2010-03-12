@@ -75,7 +75,6 @@ module Daemons
         when 'restart'
           unless @group.applications.empty?
             @group.stop_all
-            sleep 1
             @group.start_all
           end
         when 'zap'

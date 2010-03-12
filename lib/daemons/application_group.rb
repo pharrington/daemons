@@ -26,6 +26,7 @@ module Daemons
     def initialize(app_name, options = {})
       @app_name = app_name
       @options = options
+      @options[:stop_timeout] ||= 10
       
       if options[:script]
         @script = File.expand_path(options[:script])

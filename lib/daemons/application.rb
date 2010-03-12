@@ -337,6 +337,13 @@ module Daemons
         puts "deleting pid-file."
       end
       
+      # Try to wait until the process is actually stopped before nuking the PID file
+      timeout = Time.now + options[:stop_timeout]
+      until Time.now > timeout
+        break unless running?
+        sleep 0.5
+      end
+
       # We try to remove the pid-files by ourselves, in case the application
       # didn't clean it up.
       begin; @pid.cleanup; rescue ::Exception; end

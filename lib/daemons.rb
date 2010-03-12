@@ -114,19 +114,22 @@ module Daemons
   # <tt>:keep_pid_files</tt>:: When given do not delete lingering pid-files (files for which the process is no longer running).
   # <tt>:hard_exit</tt>:: When given use exit! to end a daemons instead of exit (this will for example
   #                       not call at_exit handlers).
+  # <tt>:stop_timeout</tt>:: Wait up to <tt>:stop_timeout</tt> seconds for the application to stop before deleting its pid-file
+  #                          Defaults to <tt>10</tt>
   # -----
   # 
   # === Example:
   #   options = {
-  #     :app_name   => "my_app",
-  #     :ARGV       => ['start', '-f', '--', 'param_for_myscript']
-  #     :dir_mode   => :script,
-  #     :dir        => 'pids',
-  #     :multiple   => true,
-  #     :ontop      => true,
-  #     :mode       => :exec,
-  #     :backtrace  => true,
-  #     :monitor    => true
+  #     :app_name     => "my_app",
+  #     :ARGV         => ['start', '-f', '--', 'param_for_myscript']
+  #     :dir_mode     => :script,
+  #     :dir          => 'pids',
+  #     :multiple     => true,
+  #     :ontop        => true,
+  #     :mode         => :exec,
+  #     :backtrace    => true,
+  #     :monitor      => true
+  #     :stop_timeout => 15
   #   }
   #
   #   Daemons.run(File.join(File.dirname(__FILE__), 'myscript.rb'), options)
